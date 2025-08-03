@@ -1,94 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors duration-500">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TechForge Blog</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Decorative background overlay (optional pattern) -->
-  <div class="background-decor"></div>
+  <title>TechForge</title>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <h1>TechForge</h1>
-    <nav>
-      <input type="text" id="search-input" placeholder="Search tech..." />
-      <button onclick="toggleDarkMode()">🌓</button>
-    </nav>
+  <!-- 1. Inline theme init BEFORE Tailwind loads to avoid flicker -->
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored
+        ? (stored === 'dark')
+        : prefersDark;
+      document.documentElement.classList[ isDark ? 'add' : 'remove' ]('dark');
+    })();
+  </script>
+
+  <!-- 2. Tailwind config & CDN -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = { darkMode: 'class' };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100">
+
+  <!-- NAVBAR -->
+  <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black transition-colors duration-500">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-3xl font-extrabold text-blue-600 dark:text-blue-400">TechForge</h1>
+      <button
+        id="theme-toggle"
+        aria-label="Toggle Dark Mode"
+        class="w-10 h-10 flex items-center justify-center rounded-full
+               bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700
+               transition-colors duration-300"
+      >
+        <span id="theme-icon" class="text-2xl">🌙</span>
+      </button>
+    </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-overlay">
-      <h2>Explore the Future of Technology</h2>
-      <p>AI, Gadgets, Robotics and more — curated for you.</p>
+  <!-- HERO + CATEGORIES -->
+  <section class="w-full py-20 transition-colors duration-500
+                  bg-gradient-to-r from-blue-100 to-blue-300
+                  dark:from-gray-900 dark:to-gray-800">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-5xl font-bold mb-4">Your Daily Tech Digest</h2>
+      <p class="text-lg mb-8 opacity-80">Curated AI, Gadgets, Robotics & more — all in one place.</p>
+      <nav class="inline-flex space-x-2">
+        <button class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-blue-600 text-white dark:bg-blue-400 dark:text-black transition-colors duration-300" data-category="All">All</button>
+        <button class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 transition-colors duration-300" data-category="AI">AI</button>
+        <button class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 transition-colors duration-300" data-category="Gadgets">Gadgets</button>
+        <button class="category-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 transition-colors duration-300" data-category="Robotics">Robotics</button>
+      </nav>
     </div>
-  </section> <!-- Close hero section -->
-
-  <!-- Categories - Moved outside hero and centered -->
-  <section class="categories">
-    <button class="category-btn active" data-category="All">All</button>
-    <button class="category-btn" data-category="AI">AI</button>
-    <button class="category-btn" data-category="Gadgets">Gadgets</button>
-    <button class="category-btn" data-category="Robotics">Robotics</button>
   </section>
 
-  <!-- Blog Grid -->
-  <main class="blog-grid" id="blog-grid">
-    <div class="blog-card" data-category="AI">
-      <img src="images/AI.jpg" alt="AI" />
-      <h3>AI is Changing the World</h3>
-      <p>Discover how AI is shaping our future in every sector.</p>
-    </div>
-
-    <div class="blog-card" data-category="Gadgets">
-      <img src="images/Gadget.jpg" alt="Gadget" />
-      <h3>Top Gadgets of 2025</h3>
-      <p>Unveiling the most awaited tech gadgets this year.</p>
-    </div>
-
-    <div class="blog-card" data-category="Robotics">
-      <img src="images/Robotics.jpg" alt="Robotics" />
-      <h3>The Rise of Robotics</h3>
-      <p>From factories to homes, robots are taking charge.</p>
-    </div>
-
-    <div class="blog-card" data-category="AI">
-      <img src="images/ML.jpg" alt="ML" />
-      <h3>ML in Everyday Life</h3>
-      <p>Explore how machine learning powers modern devices.</p>
-    </div>
+  <!-- NEWS GRID -->
+  <main id="blog-grid" class="flex-1 max-w-6xl mx-auto px-6 py-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- skeletons or articles injected here -->
   </main>
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <h2>Tech<span>Forge</span></h2>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-black transition-colors duration-500">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-sm opacity-75 mb-4 md:mb-0">© 2025 TechForge. All rights reserved.</p>
+      <div class="flex space-x-4 text-xl">
+        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">🐦</a>
+        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">📸</a>
+        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">▶️</a>
+        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">📰</a>
+      </div>
     </div>
+  </footer>
 
-    <ul class="footer-links">
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Tip Us</a></li>
-      <li><a href="#">Community Guidelines</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-
-    <div class="footer-socials">
-      <a href="#"><i class="fab fa-x-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-      <a href="#"><i class="fas fa-rss"></i></a>
-    </div>
-  </div>
-  <p class="copyright">
-    © 2025 <strong>TechForge</strong>. All rights reserved.
-  </p>
-</footer>
-
-
-  <!-- JS Script -->
+  <!-- CONFIG & LOGIC -->
+  <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
