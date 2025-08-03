@@ -1,6 +1,6 @@
 async function fetchNews(category = 'All') {
-  const gnewsApiKey = "3179d328ac2f67d61ecd6d3f98fa6640";
-  const newsApiKey = "2ae092974d5342fcae9dad2da734a6c0";
+  const gnewsApiKey  = import.meta.env.VITE_GNEWS_API_KEY;
+const newsApiKey   = import.meta.env.VITE_NEWSAPI_API_KEY;
 
   // Map UI category to API topic/category
   const gnewsTopic = {
