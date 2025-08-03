@@ -130,8 +130,6 @@ Navigate to `http://localhost:8080` (or your chosen port) to see TechForge in ac
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Open a Pull Request
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
-
 ---
 
 ## 📜 License
@@ -144,7 +142,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 **Soham Babrekar**
 
-* 🔗 [GitHub](https://github.com/SohamBabrekar)
+* 🔗 [GitHub](https://github.com/Sohamsig)
 
 ---
 
